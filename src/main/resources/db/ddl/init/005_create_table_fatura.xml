@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="init_create_table_fatura" author="matheus">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="fatura" />
+            </not>
+        </preConditions>
+
+        <createTable tableName="fatura">
+
+            <column name="id" type="serial" >
+                <constraints primaryKey="true" nullable="false"  />
+            </column>
+            <column name="dataVencimento" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="dataProcessamento" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="valor" type="decimal(18,2)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="valorPago" type="decimal(18,2)" />
+
+            <column name="numeroCartao" type="character varying(255)">
+                <constraints foreignKeyName="fk_fatura_numero_cartao" referencedTableName="cartao"
+                             referencedColumnNames="numeroCartao" nullable="false" />
+            </column>
+
+
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

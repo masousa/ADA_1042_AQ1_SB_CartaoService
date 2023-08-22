@@ -1,0 +1,16 @@
+version: "3"
+services:
+  cartao_db:
+    image: postgres:10
+    volumes:
+      - db-data:/var/lib/postgresql/data1
+    environment:
+      POSTGRES_PASSWORD: cartao
+      POSTGRES_USER: cartao
+      POSTGRES_DB: cartao
+    ports:
+      - "5433:5432"
+
+volumes:
+  db-data:
+    driver: local

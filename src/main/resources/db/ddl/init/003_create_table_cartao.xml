@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="init_create_table_cartao" author="matheus">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="cartao" />
+            </not>
+        </preConditions>
+
+        <createTable tableName="cartao">
+
+            <column name="numeroCartao" type="character varying(255)" >
+                <constraints primaryKey="true" nullable="false"  />
+            </column>
+            <column name="nomeTitular" type="character varying(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="vencimentoCartao" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="codigoSeguranca" type="character varying(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="tipoCartao" type="character varying(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="idContaBanco" type="character varying(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="dependente" type="boolean" defaultValue="false">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="usuarioIdentificador" type="character varying(255)">
+                <constraints foreignKeyName="fk_cartao_usuario_identificador" referencedTableName="usuario"
+                             referencedColumnNames="identificador" nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

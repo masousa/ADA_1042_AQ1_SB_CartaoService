@@ -28,7 +28,7 @@ public class CriarNovoCartaoService {
 
         var cartao = criarCartao(usuario, dto);
         var cartaoCadastrado = cartaoRepository.save(cartao);
-        listaCartoesCadastrados.add(cartaoCadastrado.dto(null));
+        listaCartoesCadastrados.add(cartaoCadastrado.dto(usuario.getNome()));
 
         if (dto.dependentes() != null && !dto.dependentes().isEmpty()) {
             List<Usuario> usuariosDep = criarNovoUsuarioService.execute(dto.dependentes(), dto);
@@ -36,7 +36,7 @@ public class CriarNovoCartaoService {
                 var cartaoDep = criarCartao(dependente, dto);
                 cartaoDep.setDependente(true);
                 var cartaoCadastradoDep = cartaoRepository.save(cartaoDep);
-                listaCartoesCadastrados.add(cartaoCadastradoDep.dto(dependente.getNome()));
+                listaCartoesCadastrados.add(cartaoCadastradoDep.dto(usuario.getNome()));
             }
         }
 

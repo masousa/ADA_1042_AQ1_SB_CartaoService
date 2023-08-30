@@ -35,7 +35,7 @@ public class Cartao {
                 this.numeroCartao,
                 this.nomeTitular,
                 this.tipoCartao,
-                nome != null ? nome : this.nomeTitular
+                nome
         );
     }
 }

@@ -17,4 +17,7 @@ public class Endereco {
     private String estado;
     private String complemento;
     private String numero;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "usuarioIdentificador")
+    private Usuario usuario;
 }

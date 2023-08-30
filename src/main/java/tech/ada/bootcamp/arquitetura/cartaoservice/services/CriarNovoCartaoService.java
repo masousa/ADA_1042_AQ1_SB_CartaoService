@@ -30,7 +30,7 @@ public class CriarNovoCartaoService {
         var cartaoCadastrado = cartaoRepository.save(cartao);
         listaCartoesCadastrados.add(cartaoCadastrado.dto(null));
 
-        if (!dto.dependentes().isEmpty()) {
+        if (dto.dependentes() != null && !dto.dependentes().isEmpty()) {
             List<Usuario> usuariosDep = criarNovoUsuarioService.execute(dto.dependentes(), dto);
             for (var dependente : usuariosDep) {
                 var cartaoDep = criarCartao(dependente, dto);

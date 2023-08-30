@@ -9,6 +9,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.github.javafaker.Faker;
+
 import tech.ada.bootcamp.arquitetura.cartaoservice.entities.Cartao;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.TipoCartao;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CadastroUsuarioRequest;
@@ -25,15 +28,17 @@ public class CriarNovoCartaoServiceTest {
     @InjectMocks
     private CriarNovoCartaoService criarNovoCartaoService;
 
-
-
     @Test
     void shouldSaveSuccessfullyANewCard(){
         CadastroUsuarioRequest cadastroUsuarioRequest = Mockito.mock(CadastroUsuarioRequest.class);
 
-        Mockito.when(cadastroUsuarioRequest.getTipoCartao()).thenReturn(TipoCartao.OURO);
-        Mockito.when(cadastroUsuarioRequest.getIdentificador()).thenReturn("00000000000");
-        Mockito.when(cadastroUsuarioRequest.getNome()).thenReturn("Jose Joao da Silva");
+        TipoCartao randomTipoCartao = TipoCartao.values()[(int)Math.random() * TipoCartao.values().length];
+        String randomIdentificador = Faker.instance().regexify("[0-9]{11}");
+        String randomNome = Faker.instance().name().fullName();
+
+        Mockito.when(cadastroUsuarioRequest.getTipoCartao()).thenReturn(randomTipoCartao);
+        Mockito.when(cadastroUsuarioRequest.getIdentificador()).thenReturn(randomIdentificador);
+        Mockito.when(cadastroUsuarioRequest.getNome()).thenReturn(randomNome);
 
         criarNovoCartaoService.execute(cadastroUsuarioRequest);
 
@@ -41,9 +46,14 @@ public class CriarNovoCartaoServiceTest {
         Mockito.verify(cartaoRepository,Mockito.times(1))
                 .save(cartaoArgumentCaptor.capture());
         Cartao cartaoSalvo = cartaoArgumentCaptor.getValue();
-        Assertions.assertEquals(LocalDate.now().plusYears(5),
-                cartaoSalvo.getVencimentoCartao());
+        
+        Assertions.assertEquals(LocalDate.now().plusYears(5), cartaoSalvo.getVencimentoCartao());
         Assertions.assertEquals(3,cartaoSalvo.getCodigoSeguranca().length());
         Assertions.assertEquals(12, cartaoSalvo.getNumeroCartao().length());
+        Assertions.assertEquals(randomTipoCartao, cartaoSalvo.getTipoCartao());
+        Assertions.assertEquals(randomIdentificador, cartaoSalvo.getUsuario().getIdentificador());
+        Assertions.assertEquals(randomNome, cartaoSalvo.getNomeTitular());
+        Assertions.assertEquals(randomNome, cartaoSalvo.getUsuario().getNome());
+
     }
 }

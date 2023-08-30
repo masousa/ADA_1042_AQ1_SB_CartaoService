@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.TipoCartao;
+import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.response.CadastroUsuarioResponse;
 
 import java.time.LocalDate;
 
@@ -29,4 +30,12 @@ public class Cartao {
     @JoinColumn(name = "usuarioIdentificador")
     private Usuario usuario;
 
+    public CadastroUsuarioResponse dto(String nome) {
+        return new CadastroUsuarioResponse(
+                this.numeroCartao,
+                this.nomeTitular,
+                this.tipoCartao,
+                nome != null ? nome : this.nomeTitular
+        );
+    }
 }

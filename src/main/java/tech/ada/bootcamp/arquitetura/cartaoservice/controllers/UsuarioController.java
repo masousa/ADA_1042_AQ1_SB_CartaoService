@@ -7,6 +7,8 @@ import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.response.CadastroUsu
 import tech.ada.bootcamp.arquitetura.cartaoservice.services.CriarNovoCartaoService;
 import tech.ada.bootcamp.arquitetura.cartaoservice.services.CriarNovoUsuarioService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/usuario")
 @Slf4j
@@ -16,7 +18,7 @@ public class UsuarioController {
         this.criarNovoCartaoService = cartaoService;
     }
     @PostMapping(path = "", produces = "application/json" )
-    public CadastroUsuarioResponse cadastrarUsuario(@RequestBody CadastroUsuarioRequest cadastroUsuarioRequest){
+    public List<CadastroUsuarioResponse> cadastrarUsuario(@RequestBody CadastroUsuarioRequest cadastroUsuarioRequest){
         return this.criarNovoCartaoService.execute(cadastroUsuarioRequest);
     }
 

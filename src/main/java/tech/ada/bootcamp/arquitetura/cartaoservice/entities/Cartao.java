@@ -28,5 +28,4 @@ public class Cartao {
     @ManyToOne
     @JoinColumn(name = "usuarioIdentificador")
     private Usuario usuario;
-
 }

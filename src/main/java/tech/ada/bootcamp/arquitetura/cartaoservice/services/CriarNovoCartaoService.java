@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import tech.ada.bootcamp.arquitetura.cartaoservice.entities.Cartao;
 import tech.ada.bootcamp.arquitetura.cartaoservice.entities.Usuario;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CadastroUsuarioRequest;
+import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.response.CadastroUsuarioResponse;
 import tech.ada.bootcamp.arquitetura.cartaoservice.repositories.CartaoRepository;
 
 import java.time.LocalDate;
@@ -14,24 +15,34 @@ import java.util.UUID;
 import java.util.stream.IntStream;
 
 @Service
-@RequiredArgsConstructor
 public class CriarNovoCartaoService {
-    private final CartaoRepository cartaoRepository;
+    private CriarNovoUsuarioService criarNovoUsuarioService;
+    private CartaoRepository cartaoRepository;
     private static Random random;
-    public Cartao execute(CadastroUsuarioRequest cadastroUsuarioRequest){
+
+    public CriarNovoCartaoService(CriarNovoUsuarioService criarNovoUsuarioService, CartaoRepository cartaoRepository) {
+        this.criarNovoUsuarioService = criarNovoUsuarioService;
+        this.cartaoRepository = cartaoRepository;
+    }
+    public CadastroUsuarioResponse execute(CadastroUsuarioRequest cadastroUsuarioRequest){
         LocalDate dataAtual = LocalDate.now();
         Cartao cartao = new Cartao();
+        Usuario usuario = criarNovoUsuarioService.execute(cadastroUsuarioRequest);
 
-        cartao.setTipoCartao(cadastroUsuarioRequest.getTipoCartao());
-        Usuario usuario =  new Usuario();
-        usuario.setIdentificador(cadastroUsuarioRequest.getIdentificador());
+        cartao.setTipoCartao(cadastroUsuarioRequest.tipoCartao());
         cartao.setUsuario(usuario);
         cartao.setIdContaBanco(UUID.randomUUID().toString());
-        cartao.setNomeTitular(cadastroUsuarioRequest.getNome());
+        cartao.setNomeTitular(cadastroUsuarioRequest.nome());
         cartao.setVencimentoCartao(dataAtual.plusYears(5));
         cartao.setCodigoSeguranca(gerarNumeroAleatorio(3));
         cartao.setNumeroCartao(gerarNumeroAleatorio(12));
-        return cartaoRepository.save(cartao);
+        var cartaoCadastrado = cartaoRepository.save(cartao);
+        return new CadastroUsuarioResponse(
+                cartaoCadastrado.getNumeroCartao(),
+                cartaoCadastrado.getNomeTitular(),
+                cartaoCadastrado.getTipoCartao(),
+                cartaoCadastrado.getNomeTitular()
+        );
     }
 
     private String gerarNumeroAleatorio(int length) {

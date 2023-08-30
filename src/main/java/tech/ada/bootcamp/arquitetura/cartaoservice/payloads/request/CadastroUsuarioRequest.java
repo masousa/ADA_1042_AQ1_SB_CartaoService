@@ -1,11 +1,10 @@
 package tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.TipoCartao;
-
-import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter

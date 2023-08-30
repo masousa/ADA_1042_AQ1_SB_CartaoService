@@ -15,24 +15,24 @@
 
         <createTable tableName="cartao">
 
-            <column name="numeroCartao" type="character varying(255)" >
+            <column name="numero_cartao" type="character varying(255)" >
                 <constraints primaryKey="true" nullable="false"  />
             </column>
-            <column name="nomeTitular" type="character varying(255)">
+            <column name="nome_titular" type="character varying(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="vencimentoCartao" type="date">
+            <column name="vencimento_cartao" type="date">
                 <constraints nullable="false" />
             </column>
-            <column name="codigoSeguranca" type="character varying(255)">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="tipoCartao" type="character varying(255)">
+            <column name="codigo_seguranca" type="character varying(255)">
                 <constraints nullable="false" />
             </column>
 
-            <column name="idContaBanco" type="character varying(255)">
+            <column name="tipo_cartao" type="character varying(255)">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="id_conta_banco" type="character varying(255)">
                 <constraints nullable="false" />
             </column>
 
@@ -40,7 +40,7 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="usuarioIdentificador" type="character varying(255)">
+            <column name="usuario_identificador" type="character varying(255)">
                 <constraints foreignKeyName="fk_cartao_usuario_identificador" referencedTableName="usuario"
                              referencedColumnNames="identificador" nullable="false" />
             </column>

@@ -12,7 +12,6 @@ import tech.ada.bootcamp.arquitetura.cartaoservice.repositories.UsuarioRepositor
 
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 import java.util.stream.IntStream;

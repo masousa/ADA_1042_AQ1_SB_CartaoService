@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class NotFoundException extends RuntimeException {
-    private String entityNotFound;
+    private final String entityNotFound;
 
     public NotFoundException(String entityNotFound) {
         this.entityNotFound = entityNotFound;

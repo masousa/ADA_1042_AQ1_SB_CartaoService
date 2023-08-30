@@ -10,7 +10,7 @@ import tech.ada.bootcamp.arquitetura.cartaoservice.services.CriarNovoCartaoServi
 @RequestMapping("/usuario")
 @Slf4j
 public class UsuarioController {
-    private CriarNovoCartaoService criarNovoCartaoService;
+    private final CriarNovoCartaoService criarNovoCartaoService;
 
     public UsuarioController(CriarNovoCartaoService criarNovoCartaoService) {
         this.criarNovoCartaoService = criarNovoCartaoService;

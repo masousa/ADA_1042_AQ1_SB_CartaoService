@@ -36,13 +36,14 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="dependente" type="boolean" defaultValue="false">
-                <constraints nullable="false" />
+            <column name="principal_identificador" type="character varying(255)">
+                <constraints foreignKeyName="fk_cartao_principal_identificador" referencedTableName="principal"
+                             referencedColumnNames="identificador" nullable="false" />
             </column>
 
-            <column name="usuario_identificador" type="character varying(255)">
-                <constraints foreignKeyName="fk_cartao_usuario_identificador" referencedTableName="usuario"
-                             referencedColumnNames="identificador" nullable="false" />
+            <column name="dependente_identificador" type="character varying(255)">
+                <constraints foreignKeyName="fk_cartao_dependente_identificador" referencedTableName="dependente"
+                             referencedColumnNames="identificador" nullable="true" />
             </column>
         </createTable>
     </changeSet>

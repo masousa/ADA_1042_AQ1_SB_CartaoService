@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="init_create_table_dependente" author="daniel">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="dependente" />
+            </not>
+        </preConditions>
+
+        <createTable tableName="dependente">
+
+            <column name="identificador" type="character varying(255)" >
+                <constraints primaryKey="true" nullable="false"  />
+            </column>
+            <column name="nome" type="character varying(255)">
+                <constraints nullable="false" />
+            </column>
+
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

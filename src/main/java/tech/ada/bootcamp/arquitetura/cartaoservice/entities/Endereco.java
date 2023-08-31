@@ -21,10 +21,10 @@ public class Endereco {
     private String complemento;
     private String numero;
     @OneToOne
-    @JoinColumn(name = "usuario_identificador")
-    private Usuario usuario;
+    @JoinColumn(name = "principal_identificador")
+    private Principal principal;
 
-    public Endereco(EnderecoRequest dto, Usuario usuario) {
+    public Endereco(EnderecoRequest dto, Principal principal) {
         this.cep = dto.cep();
         this.rua = dto.rua();
         this.bairro = dto.bairro();
@@ -32,6 +32,6 @@ public class Endereco {
         this.estado = dto.estado();
         this.complemento = dto.complemento();
         this.numero = dto.numero();
-        this.usuario = usuario;
+        this.principal = principal;
     }
 }

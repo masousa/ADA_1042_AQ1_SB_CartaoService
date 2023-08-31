@@ -6,7 +6,6 @@ import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CadastroDepe
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CadastroPrincipalRequest;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.response.CadastroUsuarioResponse;
 import tech.ada.bootcamp.arquitetura.cartaoservice.presenters.CriarCartaoPresenter;
-import tech.ada.bootcamp.arquitetura.cartaoservice.services.CartaoService;
 
 @RestController
 @RequestMapping("/usuario")

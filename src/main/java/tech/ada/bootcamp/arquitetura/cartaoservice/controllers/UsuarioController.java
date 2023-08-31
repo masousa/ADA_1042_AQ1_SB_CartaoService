@@ -19,13 +19,13 @@ public class UsuarioController {
         this.cartaoService = cartaoService;
     }
     @PostMapping(path = "", produces = "application/json" )
-    public List<CadastroUsuarioResponse> cadastrarUsuario(@RequestBody CadastroPrincipalRequest dto){
-        return this.cartaoService.execute(dto);
+    public CadastroUsuarioResponse cadastrarUsuario(@RequestBody CadastroPrincipalRequest dto){
+        return this.cartaoService.executeTitular(dto);
     }
 
-    @PostMapping(path = "/dependente/{idUsuario}", produces = "application/json" )
-    public void adicionarDependente(@RequestBody CadastroDependenteRequest dto, @PathVariable("idUsuario") String idUsuario){
-
+    @PostMapping(path = "/dependente", produces = "application/json" )
+    public CadastroUsuarioResponse adicionarDependente(@RequestBody CadastroDependenteRequest dto){
+        return this.cartaoService.executeDependente(dto);
     }
 
 }

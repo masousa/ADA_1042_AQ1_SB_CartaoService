@@ -27,25 +27,19 @@ public class CartaoService {
     }
 
 
-    public List<CadastroUsuarioResponse> execute(CadastroPrincipalRequest dto){
+    public CadastroUsuarioResponse executeTitular(CadastroPrincipalRequest dto){
         Principal titular = usuarioService.execute(dto);
-        List<CadastroUsuarioResponse> listaCartoesCadastrados = new ArrayList<CadastroUsuarioResponse>();
-
         var cartao = criarCartaoTitular(titular, dto.tipoCartao());
         var cartaoCadastrado = cartaoRepository.save(cartao);
-        listaCartoesCadastrados.add(cartaoCadastrado.dto(titular.getNome()));
-        return listaCartoesCadastrados;
+        return cartaoCadastrado.dto(titular.getNome());
     }
 
-    public List<CadastroUsuarioResponse> execute(CadastroDependenteRequest dtoDependente, CadastroPrincipalRequest dtoPrincipal){
-        Principal titular = usuarioService.execute(dtoPrincipal);
+    public CadastroUsuarioResponse executeDependente(CadastroDependenteRequest dtoDependente){
+        Principal titular = usuarioService.getPrincipal(dtoDependente.identificadorTitular());
         Dependente dependente = usuarioService.execute(dtoDependente);
-        List<CadastroUsuarioResponse> listaCartoesCadastrados = new ArrayList<CadastroUsuarioResponse>();
-
         var cartao = criarCartaoDependente(dependente, titular, dtoDependente.tipoCartao());
         var cartaoCadastrado = cartaoRepository.save(cartao);
-        listaCartoesCadastrados.add(cartaoCadastrado.dto(dependente.getNome()));
-        return listaCartoesCadastrados;
+        return cartaoCadastrado.dto(titular.getNome());
     }
 
 

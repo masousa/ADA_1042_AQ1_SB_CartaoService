@@ -1,8 +1,6 @@
 package tech.ada.bootcamp.arquitetura.cartaoservice.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CadastroDependenteRequest;
@@ -18,9 +16,13 @@ public class Dependente extends Usuario{
     @Id
     private String identificador;
     private String nome;
+    @ManyToOne
+    @JoinColumn(name = "principal_identificador")
+    private Principal principal;
 
-    public Dependente(CadastroDependenteRequest dto) {
+    public Dependente(CadastroDependenteRequest dto, Principal principal) {
         this.identificador = dto.identificador();
         this.nome = dto.nome();
+        this.principal = principal;
     }
 }

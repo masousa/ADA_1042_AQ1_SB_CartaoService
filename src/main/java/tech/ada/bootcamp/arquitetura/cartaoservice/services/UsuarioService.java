@@ -25,11 +25,12 @@ public class UsuarioService {
     }
 
     public Dependente execute(CadastroDependenteRequest dto) {
-        var principal = principalRepository.getReferenceById(dto.identificadorTitular());
-        var dependente = new Dependente(dto);
+        var principal = principalRepository.findById(dto.identificadorTitular());
+        if (principal.isEmpty()) {
+            //erro
+        }
+        var dependente = new Dependente(dto, principal.get());
         dependenteRepository.save(dependente);
-        var endereco = new Endereco(dto.endereco(), principal);
-        enderecoRepository.save(endereco);
         return dependente;
     }
 
@@ -41,6 +42,13 @@ public class UsuarioService {
         return principal;
     }
 
+    public Principal getPrincipal(String idTitular) {
+        var principalOp = principalRepository.findById(idTitular);
+        if(principalOp.isEmpty()) {
+            //Erro
+        }
+        return principalOp.get();
+    }
     public List<Principal> getAllPrincipal() {
         return principalRepository.findAll();
     }

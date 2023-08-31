@@ -21,6 +21,10 @@
             <column name="nome" type="character varying(255)">
                 <constraints nullable="false" />
             </column>
+            <column name="principal_identificador" type="character varying(255)">
+                <constraints foreignKeyName="fk_dependente_principal_identificador" referencedTableName="principal"
+                             referencedColumnNames="identificador" nullable="false" />
+            </column>
 
         </createTable>
     </changeSet>

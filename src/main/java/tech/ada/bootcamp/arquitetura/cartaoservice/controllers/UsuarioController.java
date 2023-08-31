@@ -1,5 +1,6 @@
 package tech.ada.bootcamp.arquitetura.cartaoservice.controllers;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CadastroDependenteRequest;
@@ -16,12 +17,12 @@ public class UsuarioController {
         this.cartaoPresenter = cartaoPresenter;
     }
     @PostMapping(path = "", produces = "application/json" )
-    public CadastroUsuarioResponse cadastrarUsuario(@RequestBody CadastroPrincipalRequest dto){
+    public CadastroUsuarioResponse cadastrarUsuario(@RequestBody @Valid CadastroPrincipalRequest dto){
         return this.cartaoPresenter.execute(dto);
     }
 
     @PostMapping(path = "/dependente", produces = "application/json" )
-    public CadastroUsuarioResponse adicionarDependente(@RequestBody CadastroDependenteRequest dto){
+    public CadastroUsuarioResponse adicionarDependente(@RequestBody @Valid CadastroDependenteRequest dto){
         return this.cartaoPresenter.execute(dto);
     }
 

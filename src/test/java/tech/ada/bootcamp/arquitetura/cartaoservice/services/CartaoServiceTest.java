@@ -17,13 +17,13 @@ import tech.ada.bootcamp.arquitetura.cartaoservice.repositories.CartaoRepository
 import java.time.LocalDate;
 
 @ExtendWith(MockitoExtension.class)
-public class CriarNovoCartaoServiceTest {
+public class CartaoServiceTest {
 
     @Mock
     private CartaoRepository cartaoRepository;
 
     @InjectMocks
-    private CriarNovoCartaoService criarNovoCartaoService;
+    private CartaoService c;
 
 
 

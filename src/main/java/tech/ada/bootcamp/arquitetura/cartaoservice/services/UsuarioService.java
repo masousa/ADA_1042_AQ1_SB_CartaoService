@@ -12,32 +12,31 @@ import tech.ada.bootcamp.arquitetura.cartaoservice.repositories.PrincipalReposit
 import java.util.List;
 
 @Service
-public class CriarNovoUsuarioService {
-    public CriarNovoUsuarioService(PrincipalRepository principaçRepository, DependenteRepository dependenteRepository, EnderecoRepository enderecoRepository) {
+public class UsuarioService {
+    private PrincipalRepository principalRepository;
+    private DependenteRepository dependenteRepository;
+    private EnderecoRepository enderecoRepository;
+
+    public UsuarioService(PrincipalRepository principaçRepository, DependenteRepository dependenteRepository, EnderecoRepository enderecoRepository) {
         this.principalRepository = principaçRepository;
         this.dependenteRepository = dependenteRepository;
         this.enderecoRepository = enderecoRepository;
     }
 
-    private PrincipalRepository principalRepository;
-    private DependenteRepository dependenteRepository;
-    private EnderecoRepository enderecoRepository;
-
-
     public Dependente execute(CadastroDependenteRequest dto) {
-        var user = new Dependente(dto);
-        dependenteRepository.save(user);
+        var dependente = new Dependente(dto);
+        dependenteRepository.save(dependente);
 //        var endereco = new Endereco(dto.endereco(), user);
 //        enderecoRepository.save(endereco);
-        return user;
+        return dependente;
     }
 
     public Principal execute(CadastroPrincipalRequest  dto) {
-        var user = new Principal(dto);
-        principalRepository.save(user);
+        var principal = new Principal(dto);
+        principalRepository.save(principal);
 //        var endereco = new Endereco(dto.endereco(), user);
 //        enderecoRepository.save(endereco);
-        return user;
+        return principal;
     }
 
     public List<Principal> getAllPrincipal() {

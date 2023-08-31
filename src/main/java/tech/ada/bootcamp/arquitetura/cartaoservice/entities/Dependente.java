@@ -5,20 +5,21 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CadastroDependenteRequest;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CadastroUsuarioRequest;
 
 import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "usuario")
+@Table(name = "dependente")
 @NoArgsConstructor
-public class Usuario {
+public class Dependente extends Usuario{
     @Id
     private String identificador;
     private String nome;
 
-    public Usuario(CadastroUsuarioRequest dto) {
+    public Dependente(CadastroDependenteRequest dto) {
         this.identificador = dto.identificador();
         this.nome = dto.nome();
     }

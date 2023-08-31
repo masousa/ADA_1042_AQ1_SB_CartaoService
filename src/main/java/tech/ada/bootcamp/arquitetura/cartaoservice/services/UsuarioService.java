@@ -24,7 +24,7 @@ public class UsuarioService {
         this.enderecoRepository = enderecoRepository;
     }
 
-    public Dependente execute(CadastroDependenteRequest dto) {
+    public Dependente criarDependente(CadastroDependenteRequest dto) {
         var principal = principalRepository.findById(dto.identificadorTitular());
         if (principal.isEmpty()) {
             //erro
@@ -34,7 +34,7 @@ public class UsuarioService {
         return dependente;
     }
 
-    public Principal execute(CadastroPrincipalRequest  dto) {
+    public Principal criarPrincipal(CadastroPrincipalRequest  dto) {
         var principal = new Principal(dto);
         principalRepository.save(principal);
         var endereco = new Endereco(dto.endereco(), principal);

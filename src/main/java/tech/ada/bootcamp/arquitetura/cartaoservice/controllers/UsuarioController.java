@@ -10,11 +10,6 @@ import tech.ada.bootcamp.arquitetura.cartaoservice.services.CriarNovoCartaoServi
 @RequestMapping("/usuario")
 @Slf4j
 public class UsuarioController {
-    private final CriarNovoCartaoService criarNovoCartaoService;
-
-    public UsuarioController(CriarNovoCartaoService criarNovoCartaoService) {
-        this.criarNovoCartaoService = criarNovoCartaoService;
-    }
 
     @PostMapping(path = "", produces = "application/json")
     public CadastroUsuarioResponse cadastrarUsuario(@RequestBody CadastroUsuarioRequest cadastroUsuarioRequest) {
@@ -24,11 +19,6 @@ public class UsuarioController {
     @PostMapping(path = "/dependente/{idUsuario}", produces = "application/json")
     public CadastroUsuarioResponse adicionarDependente(@RequestBody CadastroUsuarioRequest cadastroUsuarioRequest, @PathVariable("idUsuario") String idUsuario) {
         return new CadastroUsuarioResponse();
-    }
-
-    @PostMapping(path = "/cartao")
-    public CadastroUsuarioResponse adicionarCartao(@RequestBody CadastroUsuarioRequest cadastroUsuarioRequest) {
-        return this.criarNovoCartaoService.execute(cadastroUsuarioRequest);
     }
 
 }

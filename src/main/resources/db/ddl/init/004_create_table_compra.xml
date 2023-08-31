@@ -19,7 +19,7 @@
                 <constraints primaryKey="true" nullable="false"  />
             </column>
 
-            <column name="dataCompra" type="datetime2">
+            <column name="data_compra" type="datetime2">
                 <constraints nullable="false" />
             </column>
 
@@ -27,12 +27,12 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="numeroCartao" type="character varying(255)">
+            <column name="numero_cartao" type="character varying(255)">
                 <constraints foreignKeyName="fk_compra_numero_cartao" referencedTableName="cartao"
-                             referencedColumnNames="numeroCartao" nullable="false" />
+                             referencedColumnNames="numero_cartao" nullable="false" />
             </column>
 
-            <column name="statusCompra" type="character varying(255)">
+            <column name="status_compra" type="character varying(255)">
                 <constraints nullable="false" />
             </column>
 

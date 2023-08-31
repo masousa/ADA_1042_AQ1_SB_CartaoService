@@ -18,21 +18,21 @@
             <column name="id" type="serial" >
                 <constraints primaryKey="true" nullable="false"  />
             </column>
-            <column name="dataVencimento" type="date">
+            <column name="data_vencimento" type="date">
                 <constraints nullable="false" />
             </column>
-            <column name="dataProcessamento" type="date">
+            <column name="data_processamento" type="date">
                 <constraints nullable="false" />
             </column>
             <column name="valor" type="decimal(18,2)">
                 <constraints nullable="false" />
             </column>
 
-            <column name="valorPago" type="decimal(18,2)" />
+            <column name="valor_pago" type="decimal(18,2)" />
 
-            <column name="numeroCartao" type="character varying(255)">
+            <column name="numero_cartao" type="character varying(255)">
                 <constraints foreignKeyName="fk_fatura_numero_cartao" referencedTableName="cartao"
-                             referencedColumnNames="numeroCartao" nullable="false" />
+                             referencedColumnNames="numero_cartao" nullable="false" />
             </column>
 
 

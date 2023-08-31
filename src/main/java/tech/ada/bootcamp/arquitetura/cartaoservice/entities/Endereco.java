@@ -2,10 +2,13 @@ package tech.ada.bootcamp.arquitetura.cartaoservice.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.EnderecoRequest;
 
 @Data
 @Entity
 @Table(name = "endereco")
+@NoArgsConstructor
 public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,4 +20,18 @@ public class Endereco {
     private String estado;
     private String complemento;
     private String numero;
+    @OneToOne
+    @JoinColumn(name = "usuario_identificador")
+    private Usuario usuario;
+
+    public Endereco(EnderecoRequest dto, Usuario usuario) {
+        this.cep = dto.cep();
+        this.rua = dto.rua();
+        this.bairro = dto.bairro();
+        this.cidade = dto.cidade();
+        this.estado = dto.estado();
+        this.complemento = dto.complemento();
+        this.numero = dto.numero();
+        this.usuario = usuario;
+    }
 }

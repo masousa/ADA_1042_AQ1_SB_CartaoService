@@ -11,7 +11,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tech.ada.bootcamp.arquitetura.cartaoservice.entities.Cartao;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.TipoCartao;
-import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CadastroUsuarioRequest;
 import tech.ada.bootcamp.arquitetura.cartaoservice.repositories.CartaoRepository;
 
 import java.time.LocalDate;

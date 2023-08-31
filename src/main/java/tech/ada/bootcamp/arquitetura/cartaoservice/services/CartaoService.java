@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 import tech.ada.bootcamp.arquitetura.cartaoservice.entities.Cartao;
 import tech.ada.bootcamp.arquitetura.cartaoservice.entities.Dependente;
 import tech.ada.bootcamp.arquitetura.cartaoservice.entities.Principal;
-import tech.ada.bootcamp.arquitetura.cartaoservice.entities.Usuario;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.TipoCartao;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CadastroDependenteRequest;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CadastroPrincipalRequest;
@@ -17,40 +16,29 @@ import java.util.stream.IntStream;
 
 @Service
 public class CartaoService {
-    private UsuarioService usuarioService;
     private CartaoRepository cartaoRepository;
     private static Random random;
 
-    public CartaoService(UsuarioService usuarioService, CartaoRepository cartaoRepository) {
-        this.usuarioService = usuarioService;
+    public CartaoService(CartaoRepository cartaoRepository) {
         this.cartaoRepository = cartaoRepository;
     }
 
 
-    public List<CadastroUsuarioResponse> execute(CadastroPrincipalRequest dto){
-        Principal titular = usuarioService.execute(dto);
-        List<CadastroUsuarioResponse> listaCartoesCadastrados = new ArrayList<CadastroUsuarioResponse>();
-
-        var cartao = criarCartaoTitular(titular, dto.tipoCartao());
+    public CadastroUsuarioResponse cartaoTitular(Principal titular, TipoCartao tipoCartao){
+        var cartao = emitirCartaoTitular(titular, tipoCartao);
         var cartaoCadastrado = cartaoRepository.save(cartao);
-        listaCartoesCadastrados.add(cartaoCadastrado.dto(titular.getNome()));
-        return listaCartoesCadastrados;
+        return cartaoCadastrado.dto(titular.getNome());
     }
 
-    public List<CadastroUsuarioResponse> execute(CadastroDependenteRequest dtoDependente, CadastroPrincipalRequest dtoPrincipal){
-        Principal titular = usuarioService.execute(dtoPrincipal);
-        Dependente dependente = usuarioService.execute(dtoDependente);
-        List<CadastroUsuarioResponse> listaCartoesCadastrados = new ArrayList<CadastroUsuarioResponse>();
-
-        var cartao = criarCartaoDependente(dependente, titular, dtoDependente.tipoCartao());
+    public CadastroUsuarioResponse cartaoDependente(Dependente dependente, Principal titular, TipoCartao tipoCartao){
+        var cartao = emitirCartaoDependente(dependente, titular, tipoCartao);
         var cartaoCadastrado = cartaoRepository.save(cartao);
-        listaCartoesCadastrados.add(cartaoCadastrado.dto(dependente.getNome()));
-        return listaCartoesCadastrados;
+        return cartaoCadastrado.dto(titular.getNome());
     }
 
 
 
-    private Cartao criarCartaoTitular(Principal principal, TipoCartao tipoCartao) {
+    private Cartao emitirCartaoTitular(Principal principal, TipoCartao tipoCartao) {
         LocalDate dataAtual = LocalDate.now();
         Cartao cartao = new Cartao();
         cartao.setTipoCartao(tipoCartao);
@@ -63,7 +51,7 @@ public class CartaoService {
         return cartao;
     }
 
-    private Cartao criarCartaoDependente(Dependente dependente, Principal principal, TipoCartao tipoCartao) {
+    private Cartao emitirCartaoDependente(Dependente dependente, Principal principal, TipoCartao tipoCartao) {
         LocalDate dataAtual = LocalDate.now();
         Cartao cartao = new Cartao();
         cartao.setTipoCartao(tipoCartao);

@@ -1,4 +1,21 @@
 package tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request;
 
-public record EnderecoRequest (String cep, String rua, String bairro, String cidade, String estado, String complemento, String numero) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
+public record EnderecoRequest (
+        @NotBlank
+        @Pattern(regexp = "^\\d{8}$")
+        String cep,
+        @NotBlank
+        String rua,
+        @NotBlank
+        String bairro,
+        @NotBlank
+        String cidade,
+        @NotBlank
+        String estado,
+        String complemento,
+        @NotBlank
+        String numero) {
 }

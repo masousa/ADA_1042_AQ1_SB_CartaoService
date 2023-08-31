@@ -2,8 +2,6 @@ package tech.ada.bootcamp.arquitetura.cartaoservice.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.TipoCartao;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.response.CadastroUsuarioResponse;
 
@@ -24,11 +22,13 @@ public class Cartao {
 
     private String idContaBanco;
 
-    private Boolean dependente = Boolean.FALSE;
+    @ManyToOne
+    @JoinColumn(name = "principal_identificador")
+    private Principal principal;
 
     @ManyToOne
-    @JoinColumn(name = "usuarioIdentificador")
-    private Usuario usuario;
+    @JoinColumn(name = "dependente_identificador")
+    private Dependente dependente;
 
     public CadastroUsuarioResponse dto(String nome) {
         return new CadastroUsuarioResponse(

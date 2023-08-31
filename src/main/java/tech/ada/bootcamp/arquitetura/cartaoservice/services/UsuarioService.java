@@ -2,6 +2,7 @@ package tech.ada.bootcamp.arquitetura.cartaoservice.services;
 
 import org.springframework.stereotype.Service;
 import tech.ada.bootcamp.arquitetura.cartaoservice.entities.Dependente;
+import tech.ada.bootcamp.arquitetura.cartaoservice.entities.Endereco;
 import tech.ada.bootcamp.arquitetura.cartaoservice.entities.Principal;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CadastroDependenteRequest;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CadastroPrincipalRequest;
@@ -17,25 +18,26 @@ public class UsuarioService {
     private DependenteRepository dependenteRepository;
     private EnderecoRepository enderecoRepository;
 
-    public UsuarioService(PrincipalRepository principaçRepository, DependenteRepository dependenteRepository, EnderecoRepository enderecoRepository) {
-        this.principalRepository = principaçRepository;
+    public UsuarioService(PrincipalRepository principalRepository, DependenteRepository dependenteRepository, EnderecoRepository enderecoRepository) {
+        this.principalRepository = principalRepository;
         this.dependenteRepository = dependenteRepository;
         this.enderecoRepository = enderecoRepository;
     }
 
     public Dependente execute(CadastroDependenteRequest dto) {
+        var principal = principalRepository.getReferenceById(dto.identificadorTitular());
         var dependente = new Dependente(dto);
         dependenteRepository.save(dependente);
-//        var endereco = new Endereco(dto.endereco(), user);
-//        enderecoRepository.save(endereco);
+        var endereco = new Endereco(dto.endereco(), principal);
+        enderecoRepository.save(endereco);
         return dependente;
     }
 
     public Principal execute(CadastroPrincipalRequest  dto) {
         var principal = new Principal(dto);
         principalRepository.save(principal);
-//        var endereco = new Endereco(dto.endereco(), user);
-//        enderecoRepository.save(endereco);
+        var endereco = new Endereco(dto.endereco(), principal);
+        enderecoRepository.save(endereco);
         return principal;
     }
 

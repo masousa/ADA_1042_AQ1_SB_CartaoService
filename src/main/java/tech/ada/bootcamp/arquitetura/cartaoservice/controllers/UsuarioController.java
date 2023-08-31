@@ -19,7 +19,7 @@ public class UsuarioController {
         this.cartaoService = cartaoService;
     }
     @PostMapping(path = "", produces = "application/json" )
-    public List<Object> cadastrarUsuario(@RequestBody CadastroPrincipalRequest dto){
+    public List<CadastroUsuarioResponse> cadastrarUsuario(@RequestBody CadastroPrincipalRequest dto){
         return this.cartaoService.execute(dto);
     }
 

@@ -27,38 +27,50 @@ public class CartaoService {
     }
 
 
-    public List<Object> execute(CadastroPrincipalRequest dto){
+    public List<CadastroUsuarioResponse> execute(CadastroPrincipalRequest dto){
         Principal titular = usuarioService.execute(dto);
-        List<Object> listaCartoesCadastrados = new ArrayList<Object>();
-
-        var cartao = criarCartao(titular, dto.tipoCartao());
-        var cartaoCadastrado = cartaoRepository.save(cartao);
-        listaCartoesCadastrados.add(cartaoCadastrado.dto(titular.getNome()));
-        var listaCartoesDependentes = execute(dto);
-        listaCartoesCadastrados.add(listaCartoesDependentes);
-        return listaCartoesCadastrados;
-    }
-
-    public List<CadastroUsuarioResponse> execute(CadastroDependenteRequest dto){
-        Dependente dependente = usuarioService.execute(dto);
         List<CadastroUsuarioResponse> listaCartoesCadastrados = new ArrayList<CadastroUsuarioResponse>();
 
-        var cartao = criarCartao(dependente, dto.tipoCartao());
+        var cartao = criarCartaoTitular(titular, dto.tipoCartao());
+        var cartaoCadastrado = cartaoRepository.save(cartao);
+        listaCartoesCadastrados.add(cartaoCadastrado.dto(titular.getNome()));
+        return listaCartoesCadastrados;
+    }
+
+    public List<CadastroUsuarioResponse> execute(CadastroDependenteRequest dtoDependente, CadastroPrincipalRequest dtoPrincipal){
+        Principal titular = usuarioService.execute(dtoPrincipal);
+        Dependente dependente = usuarioService.execute(dtoDependente);
+        List<CadastroUsuarioResponse> listaCartoesCadastrados = new ArrayList<CadastroUsuarioResponse>();
+
+        var cartao = criarCartaoDependente(dependente, titular, dtoDependente.tipoCartao());
         var cartaoCadastrado = cartaoRepository.save(cartao);
         listaCartoesCadastrados.add(cartaoCadastrado.dto(dependente.getNome()));
-
         return listaCartoesCadastrados;
     }
 
 
 
-    private Cartao criarCartao(Usuario usuario, TipoCartao tipoCartao) {
+    private Cartao criarCartaoTitular(Principal principal, TipoCartao tipoCartao) {
         LocalDate dataAtual = LocalDate.now();
         Cartao cartao = new Cartao();
         cartao.setTipoCartao(tipoCartao);
-        cartao.setUsuario(usuario);
+        cartao.setPrincipal(principal);
         cartao.setIdContaBanco(UUID.randomUUID().toString());
-        cartao.setNomeTitular(usuario.getNome());
+        cartao.setNomeTitular(principal.getNome());
+        cartao.setVencimentoCartao(dataAtual.plusYears(5));
+        cartao.setCodigoSeguranca(gerarNumeroAleatorio(3));
+        cartao.setNumeroCartao(gerarNumeroAleatorio(12));
+        return cartao;
+    }
+
+    private Cartao criarCartaoDependente(Dependente dependente, Principal principal, TipoCartao tipoCartao) {
+        LocalDate dataAtual = LocalDate.now();
+        Cartao cartao = new Cartao();
+        cartao.setTipoCartao(tipoCartao);
+        cartao.setDependente(dependente);
+        cartao.setPrincipal(principal);
+        cartao.setIdContaBanco(UUID.randomUUID().toString());
+        cartao.setNomeTitular(dependente.getNome());
         cartao.setVencimentoCartao(dataAtual.plusYears(5));
         cartao.setCodigoSeguranca(gerarNumeroAleatorio(3));
         cartao.setNumeroCartao(gerarNumeroAleatorio(12));

@@ -6,24 +6,24 @@ import org.springframework.web.bind.annotation.*;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CadastroDependenteRequest;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CadastroPrincipalRequest;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.response.CadastroUsuarioResponse;
-import tech.ada.bootcamp.arquitetura.cartaoservice.presenters.CriarCartaoPresenter;
+import tech.ada.bootcamp.arquitetura.cartaoservice.usecase.CriarCartaoUseCase;
 
 @RestController
 @RequestMapping("/usuario")
 @Slf4j
 public class UsuarioController {
-    private CriarCartaoPresenter cartaoPresenter;
-    public UsuarioController (CriarCartaoPresenter cartaoPresenter) {
-        this.cartaoPresenter = cartaoPresenter;
+    private CriarCartaoUseCase cartaoUseCase;
+    public UsuarioController (CriarCartaoUseCase cartaoPresenter) {
+        this.cartaoUseCase = cartaoPresenter;
     }
     @PostMapping(path = "", produces = "application/json" )
     public CadastroUsuarioResponse cadastrarUsuario(@RequestBody @Valid CadastroPrincipalRequest dto){
-        return this.cartaoPresenter.execute(dto);
+        return this.cartaoUseCase.execute(dto);
     }
 
     @PostMapping(path = "/dependente", produces = "application/json" )
     public CadastroUsuarioResponse adicionarDependente(@RequestBody @Valid CadastroDependenteRequest dto){
-        return this.cartaoPresenter.execute(dto);
+        return this.cartaoUseCase.execute(dto);
     }
 
 }

@@ -1,4 +1,4 @@
-package tech.ada.bootcamp.arquitetura.cartaoservice.presenters;
+package tech.ada.bootcamp.arquitetura.cartaoservice.usecase;
 
 import org.springframework.stereotype.Service;
 import tech.ada.bootcamp.arquitetura.cartaoservice.entities.Dependente;
@@ -6,19 +6,14 @@ import tech.ada.bootcamp.arquitetura.cartaoservice.entities.Principal;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CadastroDependenteRequest;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.request.CadastroPrincipalRequest;
 import tech.ada.bootcamp.arquitetura.cartaoservice.payloads.response.CadastroUsuarioResponse;
-import tech.ada.bootcamp.arquitetura.cartaoservice.repositories.CartaoRepository;
 import tech.ada.bootcamp.arquitetura.cartaoservice.services.CartaoService;
 import tech.ada.bootcamp.arquitetura.cartaoservice.services.UsuarioService;
 
-import java.time.LocalDate;
-import java.util.*;
-import java.util.stream.IntStream;
-
 @Service
-public class CriarCartaoPresenter {
+public class CriarCartaoUseCase {
     private UsuarioService usuarioService;
     private CartaoService cartaoService;
-    public CriarCartaoPresenter(UsuarioService usuarioService, CartaoService cartaoService) {
+    public CriarCartaoUseCase(UsuarioService usuarioService, CartaoService cartaoService) {
         this.usuarioService = usuarioService;
         this.cartaoService = cartaoService;
     }
